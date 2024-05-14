@@ -1,0 +1,51 @@
+@import "../util.scss";
+
+.form_cont{
+    // border: 2px solid violet;
+    text-align: center;
+    max-width: 500px;
+    margin: 40px auto 10px auto;
+    .form_heading{
+        // border: 2px solid indigo;
+        @include centerHeadingMixin(1.1rem);        
+    }
+    .form_fields_cont{
+        // border: 2px solid blue;
+        display: flex;
+        flex-direction: column;
+        .form_inp{
+            @include primaryInpMixin();
+        }
+        select{
+            @include primaryInpMixin();
+        }
+        button{
+            @include primaryBtnMixin();
+            font-size: 1rem;
+            
+        }
+        .password_inp_cont{   
+            @include primaryInpMixin();
+            text-align: left;
+            padding: 0.6rem;
+            &:focus-within{
+                border: 2px solid $btnBackground;
+                outline: $btnBackground;
+                box-shadow: 0.2px 0.2px 10px 0.2px rgba(49, 130, 206, 0.3);
+            }
+
+            input{
+                width: 80%;
+                border: none;
+                outline: none;
+            }
+            span{
+                background: white;
+                // padding: 0.9rem;
+                padding: 0;
+                margin: 0;
+                cursor: pointer;
+            }
+        }
+    }
+}

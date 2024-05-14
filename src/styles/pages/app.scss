@@ -1,0 +1,23 @@
+@import "../util.scss";
+
+
+*{
+    // background:linear-gradient(90deg, $backgroundThemePrimary, $backgroundThemeSecondary);
+    font-size: 16px;
+    margin: 0;
+    padding: 0px;
+    box-sizing: border-box;
+    // background:$backgroundThemePrimary;
+};
+body{
+    background:linear-gradient(90deg, $backgroundThemePrimary, $backgroundThemeSecondary);
+    padding: 5px
+    // background:linear-gradient(90deg, $backgroundThemePrimary, $backgroundThemeSecondary);
+    // background:linear-gradient(90deg, $backgroundThemeSecondary, $backgroundThemePrimary);
+};
+
+@media screen and (width <= 570px) {
+    *{
+        font-size: 12px;
+    }
+}

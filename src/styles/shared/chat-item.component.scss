@@ -1,0 +1,51 @@
+
+
+.chatitem_cont{
+    // border: 2px solid blue;
+    margin: 5px 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    .chatitem_link{
+        // border: 2px solid violet;
+        display: block;
+        text-decoration: none;
+        color: black;
+        &:hover{
+            background:#f0f0f0;
+        }
+        .chat_item{
+            // border: 2px solid blue;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:relative;
+            
+            .img_cont{
+                // border: 2px solid indianred;
+                
+            }
+            .chat_info{
+                // border: 2px solid indigo;
+                width: 60%;
+                .chat_name{
+                    // border: 2px solid green;
+                    
+                }
+                .new_message{
+                    // border: 2px solid red;
+                    
+                }
+                .online_indication{
+                    width:10px;
+                    height:10px;
+                    border-radius:50%;
+                    background:green;
+                    position:absolute;
+                    top:50%;
+                    right:1rem;
+                    transform:translateY(-50%);
+                }
+            }
+        }
+    }
+}

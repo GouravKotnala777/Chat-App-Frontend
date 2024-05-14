@@ -1,0 +1,66 @@
+@import "../util.scss";
+
+.search_cont{
+    // border: 2px solid rgb(81, 255, 0);
+    // background: red;
+    width: 98%;
+    height: 100vh;
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    
+    
+    .dialog_cont{
+        // border: 2px solid violet;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 200px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 8px 8px 0 0;
+        border: none;
+
+        .dialog_heading{
+            @include centerHeadingMixin();
+        }
+        input{
+            @include primaryInpMixin();
+            border: 1px solid #b1b1b1;
+        }
+        button{
+            @include primaryBtnMixin();
+
+        }
+        .list_cont{
+            // border: 2px solid orange;
+            background: white;
+            padding: 0 4px;
+            .seach_cont_ul{
+                height: 170px;
+                // border: 2px solid blue;
+                overflow-y: scroll;
+                .seach_cont_li{
+                    // border: 2px solid green;
+                    list-style: none;
+                    margin: 5px 0;
+                    background:$backgroundThemePrimary;
+                    padding: 0 4px;
+                    border-radius: 8px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (width <= 570px) {
+    .search_cont{        
+        .dialog_cont{
+            width: 96%;
+        }
+    }
+    
+}

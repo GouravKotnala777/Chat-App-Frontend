@@ -1,0 +1,100 @@
+
+.admin_layout_cont{
+    // border: 1px solid red;
+    display: flex;
+    height: 100vh;
+    .left_section{
+        // border: 1px solid violet;
+        width: 30%;
+        background: bisque;
+    }
+    .right_section{
+        // border: 1px solid indigo;
+        width: 70%;
+        transition: 0.4s;
+        .back_btn{
+            display: flex;
+            justify-content: space-between;
+            .BiLeftArrowAlt{
+                font-size: 16px;
+    
+            }
+            .GiHamburgerMenu{
+                font-size: 16px;
+                display: none;
+            }
+        }
+    }
+    .hamburger_overlay{
+        width: 100%;
+        height: 104%;
+        position: absolute;
+        transition: 0.4s;
+        top: 0;
+        display: none;
+
+        .left_part{
+            background: white;
+            width: 70%;
+            overflow-y: scroll;
+            h2{
+                padding: 20px 20px 10px 20px;
+            }
+            .hamburger_items{
+                // border: 1px solid red;
+                padding: 10px 20px;
+                .hamburger_nav_link{
+                    // border: 3px solid rgb(0, 255, 60);
+                    display: flex;
+                    margin:20px 0;
+                    padding: 10px 10px 10px 15px;
+                    gap: 10px;
+                    text-decoration: none;
+                    align-items: center;
+                    border-radius: 20px 0 0 20px;
+                    cursor: pointer;
+                    &:hover{
+                        font-weight: bold;
+                    }
+                    .nav_icon{
+                        // border: 1px solid purple;
+                    }
+                    .nav_heading{
+                        // border: 1px solid greenyellow;
+                    }
+                }
+            }
+        }
+        .right_part{
+            // border: 2px solid rgb(60, 0, 255);            
+            width: 30%;
+            transition: 0.6s;
+        }
+    }
+}
+
+@media screen and (width <= 570px) {
+    .admin_layout_cont{
+        .left_section{
+            display: none;
+        }
+        .right_section{
+            width: 100%;
+            .back_btn{
+                .BiLeftArrowAlt{
+                }
+                .GiHamburgerMenu{
+                    display: block;
+                }
+            }
+        }
+        .hamburger_overlay{
+            display: flex;
+            
+            .left_part{
+            }
+            .right_part{
+            }
+        }
+    }
+}

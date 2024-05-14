@@ -1,0 +1,38 @@
+@import "../util.scss";
+
+.or_cont{
+    // border: 2px solid red;
+
+    
+    max-width: 500px;
+    margin: 5px auto;
+
+
+    display: grid;
+    grid-template-columns: 47% 6% 47%;
+    align-items: center;
+    span{
+        border:1px solid black;
+    }
+    .or{
+        // border: 2px solid red;
+        text-align: center;
+        // grid-template-columns: 6%;
+    }
+}
+.login_toggler_cont{
+    // border: 2px solid red;
+    @include flexMixin();
+    max-width: 500px;
+    margin: 5px auto;
+    font-size: 1rem;
+
+    span{
+        font-size: 0.8rem;
+        button{
+            text-decoration: underline;
+            border: none;
+            color: blue;
+        }
+    }
+}

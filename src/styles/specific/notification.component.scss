@@ -1,0 +1,89 @@
+@import "../util.scss";
+
+
+.notification_cont{
+    border: 2px solid rgb(0, 255, 42);
+    width: 98%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: block;
+    position: absolute;
+    .dialog_cont{
+        border: 2px solid violet;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 400px;
+        height: 200px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 8px 8px 0 0;
+        border: none;
+
+        .dialog_heading{
+            border: 2px solid indigo;
+            @include centerHeadingMixin();
+        }
+        input{
+            @include primaryInpMixin();
+        }
+        button{
+            // @include primaryBtnMixin();
+        }
+        .list_cont{
+            border: 2px solid peru;
+            
+            ul{
+                border: 2px solid blue;
+                li{
+                    border: 2px solid green;
+                    list-style: none;
+                    .notification_item_cont{
+                        border: 2px solid yellow;
+                        .notification_item{
+                            border: 2px solid blue;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            img{
+                                border: 2px solid pink;
+                                width: 30px;
+                            }
+                            .user_name{
+                                border: 2px solid pink;
+                                display: flex;
+                                flex-wrap: wrap;
+                                span{
+                                    border:2px solid red;
+                                }                                
+                            }
+                            .btns{
+                                border: 2px solid pink;
+                                .accept_btn{
+                                    border: 2px solid red;
+                                    
+                                }
+                                .reject_btn{
+                                    border: 2px solid red;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (width <= 570px) {
+    .notification_cont{        
+        .dialog_cont{
+            width: 94%;
+        }
+    }
+    
+}

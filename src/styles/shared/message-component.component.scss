@@ -1,0 +1,24 @@
+
+
+.message_component_cont{
+    // border:2px solid red;
+    width: fit-content;
+    padding: 4px;
+    background: white;
+    border-radius: 4px;
+    
+    .name{
+        // border:2px solid violet;
+        font-size: 8px;
+        color: green;
+        font-weight: bold;
+    }
+    .content{
+        // border:2px solid indigo;
+        font-size: 10px;
+    }
+    .time_stamp{
+        font-size: 9px;
+        color: #919191;
+    }
+}

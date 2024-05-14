@@ -1,0 +1,39 @@
+
+.chat_cont{
+    border: 2px solid red;
+    height: 100%;
+    background: rgb(232, 232, 232);
+    .message_cont_outer{
+        border: 2px solid blue;
+        height: 90%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .message_cont_inner{
+            border: 1px solid orange;
+        }
+    }
+    .input_cont{
+        border: 2px solid rgb(0, 255, 21);
+        height: 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        .CgAttachment_cont{
+            border: 2px solid yellow;
+            .CgAttachment{
+                color: #515151;
+            }
+        }
+        .message_inp{
+            padding: 4px 5px;
+        }
+        .BiSend_cont{
+            border: 2px solid yellow;
+            .BiSend{
+                color: #515151;
+    
+            }
+        }
+    }
+}

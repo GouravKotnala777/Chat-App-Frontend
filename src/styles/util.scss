@@ -1,0 +1,45 @@
+$primary:#ff3153;
+$secondary:#ff824d;
+$backgroundThemePrimary:#ffe4e8;
+$backgroundThemeSecondary:#ffdce2;
+$btnBackground:#3182ce;
+
+
+@mixin flexMixin() {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin centerHeadingMixin($fontSize:1rem) {
+    padding: 1rem;
+    text-align: center;
+    font-size: $fontSize;
+    font-weight: bold;
+}
+
+@mixin primaryInpMixin() {
+    margin:10px;
+    padding: 0.8rem;
+    border: 2px solid transparent;
+    border-radius:4px;
+    transition: 0.2s;
+    font-size: 1rem;
+    background: white;
+    
+    &:focus{
+        border: 2px solid $btnBackground;
+        outline: $btnBackground;
+        box-shadow: 0.2px 0.2px 10px 0.2px rgba(49, 130, 206, 0.3);
+    }
+}
+@mixin primaryBtnMixin() {
+    margin: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    background:$btnBackground;
+    color: white;
+    font-weight:bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+}

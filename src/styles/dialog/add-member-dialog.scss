@@ -1,0 +1,44 @@
+// @import "../util.scss";
+
+.add_member_dialog_cont{
+    // border: 2px solid pink;
+    width: 100%;
+    height: 104vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.7);
+    .add_member_dialog{
+        // border: 2px solid red;
+        padding: 10px;
+        margin: 20% auto;
+        border: none;
+
+        .dialog_title{
+            // border: 2px solid violet;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .dialog_content{
+            // border: 2px solid indigo;
+            margin: 10px 0;
+        }
+        .dialog_btns{
+            // border: 2px solid blue;
+            // text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px 0;
+            gap: 20px;
+            .cancell_btn{
+                // border: 2px solid green;
+                
+            }
+            .ok_btn{
+                // border: 2px solid orange;
+
+            }
+        }
+    }
+}
