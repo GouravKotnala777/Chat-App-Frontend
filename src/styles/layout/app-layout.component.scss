@@ -1,26 +1,58 @@
 
 
 .app_layout_cont{
-    border: 2px solid red;
+    // border: 2px solid red;
     .three_sections_cont{
-        border: 2px solid violet;
+        // border: 2px solid violet;
         display: flex;
         height: 100vh;
         
         .left_section{
-            border: 2px solid indigo;
+            // border: 2px solid indigo;
             width: 40%;
+            position: relative;
             
         }
         .middle_section{
-            border: 2px solid blue;
+            // border: 2px solid blue;
             width: 40%;
             
         }
         .right_section{
-            border: 2px solid green;
+            // border: 2px solid green;
             width: 40%;
             
+        }
+    }
+    .hamburger_overlay{
+        // border: 10px solid green;
+        width: 100%;
+        height: 104%;
+        position: absolute;
+        transition: 0.4s;
+        top: 0;
+        display: none;
+
+        .left_part{
+            // border: 2px solid rgb(238, 0, 255);   
+            background: white;
+            width: 70%;
+            position: relative;
+        }
+        .right_part{
+            // border: 2px solid rgb(60, 0, 255);            
+            width: 30%;
+            transition: 0.6s;
+            text-align: center;
+            cursor: pointer;
+            .cancel_icon{
+                box-shadow: 1px 1px 10px 2px white;
+                font-size: 20px;
+                color: white;
+                background: rgba(255, 255, 255, 0.63);
+                margin-top: 20px;
+                border-radius: 50%;
+            }
         }
     }
 }
@@ -47,16 +79,21 @@
     .app_layout_cont{
         .three_sections_cont{            
             .left_section{
-                width: 100%;
-                
+                display:none;
             }
             .middle_section{
-                display:none;
-                
+                width: 100%;   
             }
             .right_section{
                 display:none;
-                
+            }
+        }
+        .hamburger_overlay{
+            display: flex;
+        
+            .left_part{
+            }
+            .right_part{
             }
         }
     }

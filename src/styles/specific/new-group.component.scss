@@ -1,47 +1,52 @@
-
+@import "../util.scss";
 
 
 .new_group_cont{
-    border: 2px solid red;
+    // border: 2px solid red;
     width: 98%;
     height: 100vh;
     position: absolute;
     background: rgba(0,0,0,0.5);
-    
+    .closing_area{
+        height: 100%;
+    }
     .dialog_cont{
-        border: 2px solid violet;
+        // border: 2px solid violet;
         position: absolute;
-        top: 30%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 400px;
-        height: 200px;
+        height: 300px;
         text-align: center;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         border-radius: 8px 8px 0 0;
         padding: 5px;
-        // border: none;
+        border: none;
         .dialog_heading{
-            border: 2px solid indigo;
+            // border: 2px solid indigo;
             
         }
         input{
-
+            @include primaryInpMixin();
+            border: 1px solid #b1b1b1;
         }
         .list_cont{
-            border: 2px solid blue;
+            // border: 2px solid blue;
+            overflow-Y: scroll;
             .new_group_cont_ul{
-                border: 2px solid green;
+                // border: 2px solid rgb(255, 0, 0);
                 .new_group_cont_li{
-                    border: 2px solid orange;
+                    // border: 2px solid orange;
                     list-style: none;
+                    margin: 4px;
                 }
             }
         }
         .btns_cont{
-            border: 2px solid red;
+            // border: 2px solid red;
             text-align: right;
             button{
                 margin-left: 20px;

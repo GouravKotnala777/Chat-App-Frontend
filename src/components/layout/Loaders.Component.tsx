@@ -9,8 +9,7 @@ export const LayoutLoaders = () => {
         <div className="loader_cont">
             <div className="app_layout_cont">
                 <Title title="Chat App" description="this is description" />
-                <Header /> 
-                {/* // 900 600 */}
+                <Header />
                 <div className="three_sections_cont">
                     <div className="left_section"><Skeleton variant="rectangular" /></div>
                     <div className="middle_section">

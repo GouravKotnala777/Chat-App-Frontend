@@ -4,27 +4,96 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { MouseEvent, ReactEventHandler, Suspense, lazy, memo, useEffect, useState } from "react";
 import AvatarCard from "../components/shared/AvatarCard.Component";
-import { ChatTypes, sampleChats, sampleUsers } from "../constants/sampleData";
+import { ChatTypes, UserTypes } from "../constants/sampleData";
 import { MdDone } from "react-icons/md";
 import AddMemberDialog from "../components/dialog/AddMemberDialog";
 import UserItem from "../components/shared/UserItem.Component";
+import { server } from "../constants/config";
+import toast, {Toaster} from "react-hot-toast";
 const ConfirmDeleteDialog = lazy(() => import("../components/dialog/ConfirmDeleteDialog"));
+
 
 const isAddMember:boolean = false;
 
 const Groups = () => {
   const chatID = useSearchParams()[0].get("group");
   const navigate = useNavigate();
+  const [chats, setChats] = useState<ChatTypes[]>([]);
+  const [members, setMembers] = useState<UserTypes[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [confirmDeleteDialog, setConfirmDeleteDialog] = useState<boolean>(false);
   const [groupName, setGroupName] = useState<string>();
   const [groupNameUpdated, setGroupNameUpdated] = useState<string>();
 
-  const updateGroupName = () => {
-    setIsEdit(false);
-    console.log(groupNameUpdated);
-    
+
+  const getMyGroupChats = async() => {
+    try {
+      const res = await fetch(`${server}/api/v1/chat/my/groups`, {
+        method:"GET",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include"
+      });
+      const data = await res.json();
+
+      console.log("------ Group.Page.tsx  getMyGroupChats");
+      console.log(data);
+      setChats(data.message);
+      console.log("------ Group.Page.tsx  getMyGroupChats");
+      
+    } catch (error) {
+      console.log("------ Group.Page.tsx  getMyGroupChats");
+      console.log(error);
+      console.log("------ Group.Page.tsx  getMyGroupChats");
+    }
+  };
+  const getChatDetailes = async() => {
+    try {
+      const res = await fetch(`${server}/api/v1/chat/${chatID}`, {
+        method:"GET",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include"
+      });
+      const data = await res.json();
+
+      console.log("------ Group.Page.tsx  getChatDetailes");
+      console.log(data);
+      setMembers(data.message.members);
+      setGroupName(data.message.name);
+      console.log("------ Group.Page.tsx  getChatDetailes");
+      
+    } catch (error) {
+      console.log("------ Group.Page.tsx  getChatDetailes");
+      console.log(error);
+      console.log("------ Group.Page.tsx  getChatDetailes");
+    }
+  };
+  const updateGroupName = async() => {
+    try {
+      const res = await fetch(`${server}/api/v1/chat/${chatID}`, {
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include",
+        body:JSON.stringify({name:groupNameUpdated})
+      });
+      const data = await res.json();
+
+      console.log("------ Group.Page.tsx  updateGroupName");
+      setIsEdit(false);
+      console.log(data);
+      console.log("------ Group.Page.tsx  updateGroupName");
+    } catch (error) {
+      console.log("------ Group.Page.tsx  updateGroupName");
+      setIsEdit(false);
+      console.log(error);
+      console.log("------ Group.Page.tsx  updateGroupName");
+    }    
   };
   const openConfirmDeleteHandler = () => {
     setConfirmDeleteDialog(true);
@@ -38,12 +107,69 @@ const Groups = () => {
   const openAddMemberHandler = () => {
     console.log("Add Member");
   };
-  const deleteHandler = (e:MouseEvent<HTMLButtonElement>) => {
+  const deleteHandler = async(e:MouseEvent<HTMLButtonElement>) => {
     console.log("Delete Handler");
     closeConfirmDeleteHandler(e);
+    try {
+      const res = await fetch(`${server}/api/v1/chat/${chatID}`, {
+        method:"DELETE",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include"
+      });
+      const data = await res.json();
+  
+      console.log("----- Group.Page.tsx  deleteHandler");
+      console.log(data);
+      console.log("----- Group.Page.tsx  deleteHandler");
+
+      if (data.success === true) {
+        toast.success(data.message, {
+          position:"bottom-center",
+          duration:2000
+        });
+        }
+      else{
+        toast.error(data.message, {
+          position:"bottom-center",
+          duration:2000
+        });
+      }
+      
+    } catch (error) {
+      toast.error("Error Occured", {
+        position:"bottom-center",
+        duration:2000
+      });
+      console.log("----- Group.Page.tsx  deleteHandler");
+      console.log(error);
+      console.log("----- Group.Page.tsx  deleteHandler");
+    }
+    
   };
-  const removeMemberHandler = (id:string) => {
-    console.log("removed member", id);
+  const removeMemberHandler = async(e:MouseEvent<HTMLDivElement|HTMLButtonElement>, userID:string) => {
+    // console.log("removed member", userID);
+    try {
+      const res = await fetch(`${server}/api/v1/chat/removemember`, {
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include",
+        body:JSON.stringify({chatID, userID})
+      });
+      const data = await res.json();
+
+      console.log("------ Group.Page.tsx  removeMemberHandler");
+      console.log(data);
+      console.log("------ Group.Page.tsx  removeMemberHandler");
+    } catch (error) {
+      console.log("------ Group.Page.tsx  removeMemberHandler");
+      console.log(error);
+      console.log("------ Group.Page.tsx  removeMemberHandler");
+      
+    }
     
   };
 
@@ -64,9 +190,11 @@ const Groups = () => {
     </div>)
 
     useEffect(() => {
+      getMyGroupChats();
+    }, []);
+    useEffect(() => {
       if (chatID) {
-        setGroupName(`Group Name ${chatID}`);
-        setGroupNameUpdated(`Group Name ${chatID}`);
+        getChatDetailes();
       }
 
       return () => {
@@ -79,9 +207,11 @@ const Groups = () => {
 
     return (
       <div className="group_cont">
+        <Toaster />
 
         <div className="group_list">
-          <GroupsList myGroups={sampleChats} chatID={chatID} />
+          {/* <pre>{JSON.stringify(members, null, `\t`)}</pre> */}
+          <GroupsList myGroups={chats} chatID={chatID!} />
         </div>
 
         <div className="group_details">
@@ -103,14 +233,16 @@ const Groups = () => {
             )
           }
 
-          {
-            sampleUsers.map((i) => (
-              <UserItem user={i} isUserAdded={true} handler={removeMemberHandler} />
-            ))
-          }
+          <div className="members_list_cont">
+            {
+              members.map((i) => (
+                <UserItem key={i._id} user={i} isUserAdded={true} handler={(e) => removeMemberHandler(e, i._id)} />
+              ))
+            }
+          </div>
 
           {
-            isAddMember && <Suspense fallback={<div>Loading...</div>}><AddMemberDialog chatID={chatID!} /></Suspense>
+            isAddMember && <Suspense fallback={<div>Loading...</div>}><AddMemberDialog purpose="Ad Members"/></Suspense>
           }
 
           {
@@ -121,7 +253,7 @@ const Groups = () => {
 
         <div className="hamburger_overlay" style={{left:isMobileMenuOpen?"0%":"-97%"}}>
           <div className="left_part">
-            <GroupsList w={"50vw"} myGroups={sampleChats} chatID={chatID} />
+            <GroupsList w={"50vw"} myGroups={chats} chatID={chatID!} />
           </div>
           <div className="right_part" style={{background:isMobileMenuOpen?"rgba(0,0,0,0.7)":""}} onClick={() => setIsMobileMenuOpen(false)} ></div>
         </div>
@@ -130,7 +262,7 @@ const Groups = () => {
     )
 };
 
-const GroupsList = ({w="100%", myGroups=[], chatID}:{w?:string; myGroups:ChatTypes[]; chatID:string;}) => (
+const GroupsList = ({myGroups=[], chatID}:{w?:string; myGroups:ChatTypes[]; chatID:string;}) => (
   <div>
     {
       myGroups.length > 0 ? 

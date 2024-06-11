@@ -1,9 +1,16 @@
 
 .chatlist_cont{
-    border: 2px solid blue;
+    // border: 2px solid blue;
     overflow-y: scroll;
     height: 100%;
-.chatlist_con{
-    border: 2px solid green;
-}
+    position: absolute;
+    top: 0px;
+    .chatlist_con{
+        // border: 2px solid green;
+        .forward_btn_group{
+            // border: 2px solid red;
+            position: fixed;
+            bottom: 5px;
+        }
+    }
 }

@@ -5,7 +5,7 @@ const Home = () => {
     return (
       <div className="home_cont">
         <div className="message_cont">
-          Select a friend to chat
+          Select chat to start a conversation...
         </div>
       </div>
     )

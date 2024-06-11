@@ -1,20 +1,19 @@
 import "./styles/pages/app.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import ProtectedRoute from "./components/auth/ProtectedRoute.Component";
 import About from "./pages/About.Page";
 import ChatManagement from "./pages/admin/ChatManagement";
+import { server } from "./constants/config";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthReducerInitialState, userExists, userNotExists } from "./redux/reducers/authReducer";
+import { LayoutLoaders } from "./components/layout/Loaders.Component";
+import { SocketProvider } from "./socket";
+import Test from "./Test";
 
-
-// import Home from "./pages/Home.Page";
-// import About from "./pages/About.Page";
-// import Auth from "./pages/Auth.Page";
-// import About2 from "./pages/About2";
 
 const Home = lazy(() => import("./pages/Home.Page"));
 const Auth = lazy(() => import("./pages/Auth.Page"));
-// const About = lazy(() => import("./pages/About.Page"));
-// const About2 = lazy(() => import("./pages/About2"));
 const Chat = lazy(() => import("./pages/Chat.Page"));
 const Groups = lazy(() => import("./pages/Group.Page"));
 
@@ -25,15 +24,50 @@ const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
 const MessageManagement = lazy(() => import("./pages/admin/MessageManagement"));
 
 
-const user:boolean = true;
 
 function App() {
+  const {isLoading, user} = useSelector((state:{authReducer:AuthReducerInitialState}) => state.authReducer);
+  const dispatch = useDispatch();
 
-  return (
+
+  useEffect(() => {
+    fetch(`${server}/api/v1/user/me`, {
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      credentials:"include"
+    }).then((res) => res.json())
+    .then((data) => {
+      console.log("----- App.tsx  me");
+      console.log(data);
+      dispatch(userExists({
+        _id:data.message._id,
+        name:data.message.name,
+        userName:data.message.userName,
+        bio:data.message.bio,
+        avatar:data.message.avatar.public_id
+      }))
+      console.log("----- App.tsx  me");
+    })
+    .catch((error) => {
+      console.log("----- App.tsx  me");
+      console.log(error);
+      dispatch(userNotExists())
+      console.log("----- App.tsx  me");
+    });
+  }, [dispatch]);
+
+  return isLoading ? (<BrowserRouter><LayoutLoaders /></BrowserRouter>):(
     <BrowserRouter>
       <Suspense fallback={<div>...Loading</div>}>
+          {/* <h1>Logined User {user?.name}</h1> */}
         <Routes>
-          <Route element={<ProtectedRoute user={user} />}>
+          <Route element={
+            <SocketProvider>
+              <ProtectedRoute user={!!user} />
+            </SocketProvider>
+          }>
             <Route path="/" element={<Home />} />
             <Route path="/chat/:chatID" element={<Chat />} />
             <Route path="/groups" element={<Groups />} />
@@ -51,6 +85,8 @@ function App() {
           <Route path="/admin/users" element={<UserManagement />} />
           <Route path="/admin/messages" element={<MessageManagement />} />
           <Route path="/admin/chats" element={<ChatManagement />} />
+
+          <Route path="/test" element={<Test />} />
 
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>

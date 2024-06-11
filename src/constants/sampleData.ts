@@ -7,6 +7,13 @@ export interface ChatTypes {
     groupChat:boolean;
     members:string[];
 }
+export interface ChatTypesPopulated {
+    avatar:string[];
+    name:string;
+    _id:string;
+    groupChat:boolean;
+    members:UserTypes[];
+}
 export interface UserTypes {
     avatar:string[];
     name:string;

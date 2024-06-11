@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Home from "../../pages/Home.Page";
 
-interface ProtectedRoutePropTypes {
+export interface ProtectedRoutePropTypes {
     children?:ReactElement;
     user:boolean;
     redirect?:string;
@@ -15,7 +14,3 @@ const ProtectedRoute = ({children, user, redirect="/login"}:ProtectedRoutePropTy
 };
 
 export default ProtectedRoute;
-
-<ProtectedRoute user={false}>
-    <Home />
-</ProtectedRoute>

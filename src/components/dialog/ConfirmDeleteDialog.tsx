@@ -1,4 +1,3 @@
-// import { useEffect } from "react";
 import { MouseEvent, ReactEventHandler } from "react";
 import "../../styles/dialog/confirm-delete-dialog.scss";
 

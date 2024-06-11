@@ -1,4 +1,3 @@
-import React from "react";
 import { transformImage } from "../../lib/features";
 import { MdFileOpen } from "react-icons/md";
 
@@ -10,7 +9,7 @@ const RenderAttachment = (file:string, url:string) => {
             
     
         case "image":
-            return <img src={transformImage(url, 200)} alt="Attachment" width={"200px"} height={"150px"} style={{objectFit:"contain"}} />;
+            return <img src={transformImage(url)} alt="Attachment" width={"200px"} height={"150px"} style={{objectFit:"contain"}} />;
             
                 
         case "audio":

@@ -2,7 +2,7 @@
 .group_cont{
     // border: 2px solid red;
     display: flex;
-    height: 100vh;
+    height: 99vh;
     .group_list{
         // border: 2px solid violet;
         width: 40%;
@@ -25,6 +25,12 @@
                 font-size: 16px;
                 display: none;
             }
+        }
+        .members_list_cont{
+            // border: 4px solid blue;
+            overflow-y:scroll;
+            height: 70%;
+            margin-top: 10px;
         }
     }
     .hamburger_overlay{

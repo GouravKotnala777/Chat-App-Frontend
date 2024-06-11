@@ -8,6 +8,9 @@
     background: rgba(0,0,0,0.5);
     display: block;
     position: absolute;
+    .closing_area{
+        height: 100%;
+    }
     .dialog_cont{
         border: 2px solid violet;
         position: absolute;

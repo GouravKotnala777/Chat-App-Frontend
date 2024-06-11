@@ -1,5 +1,5 @@
 import { Line, Doughnut } from "react-chartjs-2";
-import {ArcElement, CategoryScale, ChartData, Chart as ChartJS, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip, plugins, scales} from "chart.js";
+import {ArcElement, CategoryScale, ChartData, Chart as ChartJS, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip} from "chart.js";
 import { getLast7Days } from "../../lib/features";
 
 ChartJS.register(Tooltip, CategoryScale, LinearScale, LineElement, PointElement, Filler, ArcElement, Legend);
