@@ -10,6 +10,7 @@ const NewGroup = ({closeAllModels}:{closeAllModels:() => void}) => {
     const [groupNameInp, setGroupNameInp] = useState<string>();
 
     const selectedMemberHandler = (e:MouseEvent<HTMLDivElement|HTMLButtonElement>, id:string) => {
+        e.stopPropagation();
         if (!selectedMembers.includes(id)) {
             setSelectedMembers((prev) => [...prev, id]);
         }

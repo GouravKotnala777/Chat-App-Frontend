@@ -150,6 +150,7 @@ const Groups = () => {
   };
   const removeMemberHandler = async(e:MouseEvent<HTMLDivElement|HTMLButtonElement>, userID:string) => {
     // console.log("removed member", userID);
+    e.stopPropagation();
     try {
       const res = await fetch(`${server}/api/v1/chat/removemember`, {
         method:"PUT",

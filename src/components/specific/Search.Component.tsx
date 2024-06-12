@@ -9,6 +9,7 @@ const Search = ({closeAllModels}:{closeAllModels:() => void}) => {
     const [searchedNameQuery, setSearchedNameQuery] = useState<string>();
     const isLoadingSendFriendRequest = false;
     const addFriendHandler = async(e:MouseEvent<HTMLDivElement|HTMLButtonElement>, _id:string) => {
+        e.stopPropagation()
         try {
             const res = await fetch(`${server}/api/v1/user/sendrequest`, {
                 method:"PUT",
