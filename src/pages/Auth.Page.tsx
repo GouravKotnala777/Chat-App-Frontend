@@ -60,7 +60,7 @@ const Auth = () => {
       formData.append("avatar", avatar as File);
       console.log(authFormData);
       console.log(formData);
-      const res = await fetch(isLogin?'http://localhost:8000/api/v1/user/login':'http://localhost:8000/api/v1/user/new', {
+      const res = await fetch(isLogin?`${import.meta.env.VITE_SERVER}/api/v1/user/login`:`${import.meta.env.VITE_SERVER}/api/v1/user/new`, {
         method:"POST",
         headers:{
           "Content-Type":"application/json"
