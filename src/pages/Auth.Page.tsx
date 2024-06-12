@@ -62,9 +62,6 @@ const Auth = () => {
       console.log(formData);
       const res = await fetch(isLogin?`${import.meta.env.VITE_SERVER}/api/v1/user/login`:`${import.meta.env.VITE_SERVER}/api/v1/user/new`, {
         method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
         credentials:"include",
         body:isLogin?JSON.stringify({userName:authFormData?.userName, password:authFormData?.password}):formData
       });
