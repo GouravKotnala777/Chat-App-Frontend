@@ -7,7 +7,7 @@ const SocketContext = createContext<Socket|null|undefined>(undefined);
 const getSocket = () => useContext!(SocketContext);
 
 const SocketProvider = ({children}:{children:ReactElement}) => {
-    const socket = useMemo(() => io("http://localhost:8000", {withCredentials:true}), []);
+    const socket = useMemo(() => io("https://chat-app-backend-urlw.onrender.com", {withCredentials:true}), []);
 
     return(
         <SocketContext.Provider value={socket}>
