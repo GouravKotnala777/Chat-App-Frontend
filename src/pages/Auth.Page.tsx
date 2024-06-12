@@ -99,6 +99,15 @@ const Auth = () => {
     return (
       <>
         <Toaster />
+
+
+        <h1>Login</h1>
+        <h1>{JSON.stringify(import.meta.env.VITE_SERVER)}</h1>
+        <h1>Login</h1>
+
+
+
+
         {isLogin ? 
           <Form formHeading="Login" formFields={loginFormFields} onChangeFunc={onChangeHandler} onSelectFunc={onSelectHandler} onClickFunc={onClickHandler} />
           : 
