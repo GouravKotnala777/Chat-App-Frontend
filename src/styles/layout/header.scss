@@ -27,6 +27,9 @@
             font-size: 22px;
             cursor: pointer;
         }
+        .eye_icon{
+            display: none;
+        }
     }
 }
 
@@ -49,6 +52,9 @@
     
             .nav_link{
                 font-size: 16px;
+            }
+            .eye_icon{
+                display: unset;
             }
         }
     }

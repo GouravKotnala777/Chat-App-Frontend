@@ -60,19 +60,36 @@ const Auth = () => {
       formData.append("avatar", avatar as File);
       console.log(authFormData);
       console.log(formData);
-      const res = await fetch(isLogin?`${import.meta.env.VITE_SERVER}/api/v1/user/login`:`${import.meta.env.VITE_SERVER}/api/v1/user/new`, {
+
+      const url = isLogin 
+      ? `${import.meta.env.VITE_SERVER}/api/v1/user/login` 
+      : `${import.meta.env.VITE_SERVER}/api/v1/user/new`;
+
+      const headers = isLogin 
+        ? { "Content-Type": "application/json" } 
+        : {};
+
+      const body = isLogin 
+      ? JSON.stringify({ userName: authFormData?.userName, password: authFormData?.password }) 
+      : formData;
+
+
+
+
+      const res = await fetch(url, {
         method:"POST",
         credentials:"include",
-        body:isLogin?JSON.stringify({userName:authFormData?.userName, password:authFormData?.password}):formData
+        headers:(headers as {"Content-Type": string;}),
+        body
       });
 
       const data = await res.json();
 
       console.log("----Auth.tsx onClickHandler");
-      console.log(data.success);
+      console.log(data);
       console.log("----Auth.tsx onClickHandler");
 
-      if (data.success === false) {
+      if (data.success === false) {        
         toast.error(data.message, {
           duration:1000,
           position:"bottom-center"
@@ -97,14 +114,7 @@ const Auth = () => {
       <>
         <Toaster />
 
-
-        <h1>Login</h1>
-        <h1>{JSON.stringify(import.meta.env.VITE_SERVER)}</h1>
-        <h1>Login</h1>
-
-
-
-
+        {JSON.stringify(isLogin)}
         {isLogin ? 
           <Form formHeading="Login" formFields={loginFormFields} onChangeFunc={onChangeHandler} onSelectFunc={onSelectHandler} onClickFunc={onClickHandler} />
           : 

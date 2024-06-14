@@ -2,23 +2,33 @@
 
 
 .notification_cont{
-    border: 2px solid rgb(0, 255, 42);
+    // border: 2px solid rgb(0, 255, 42);
     width: 98%;
     height: 100vh;
     background: rgba(0,0,0,0.5);
     display: block;
     position: absolute;
+    .back_btn{
+        // border: 2px solid red;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        font-size: 20px;
+        background: pink;
+        border-radius: 2px;
+        box-shadow: 4px 4px 4px rgba(0,0,0,0.1);
+    }
     .closing_area{
         height: 100%;
     }
     .dialog_cont{
-        border: 2px solid violet;
+        // border: 2px solid violet;
         position: absolute;
-        top: 30%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         max-width: 400px;
-        height: 200px;
+        height: 300px;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -27,7 +37,7 @@
         border: none;
 
         .dialog_heading{
-            border: 2px solid indigo;
+            // border: 2px solid indigo;
             @include centerHeadingMixin();
         }
         input{
@@ -37,41 +47,61 @@
             // @include primaryBtnMixin();
         }
         .list_cont{
-            border: 2px solid peru;
-            
-            ul{
-                border: 2px solid blue;
-                li{
-                    border: 2px solid green;
+            // border: 2px solid peru;
+            overflow-y: scroll;
+            .notification_cont_ul{
+                // border: 2px solid blue;
+                .notification_cont_li{
+                    // border: 2px solid green;
+                    margin: 15px 5px;
+                    padding: 5px 0;
                     list-style: none;
+                    border-radius: 4px;
+                    border: 1px solid pink;
+                    box-shadow: 4px 8px 16px rgba(0,0,0,0.1);
+                    background: linear-gradient(90deg, rgb(255, 212, 220), rgb(255, 255, 255));
                     .notification_item_cont{
-                        border: 2px solid yellow;
+                        // border: 2px solid yellow;
                         .notification_item{
-                            border: 2px solid blue;
+                            // border: 2px solid blue;
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
                             img{
-                                border: 2px solid pink;
-                                width: 30px;
+                                // border: 2px solid pink;
+                                margin: 5px;
+                                width: 40px;
+                                height: 40px;
                             }
                             .user_name{
-                                border: 2px solid pink;
+                                // border: 2px solid pink;
                                 display: flex;
                                 flex-wrap: wrap;
+                                color: rgb(255, 73, 103);
                                 span{
-                                    border:2px solid red;
+                                    // border:2px solid red;
+                                    color: #919191;
                                 }                                
                             }
                             .btns{
-                                border: 2px solid pink;
-                                .accept_btn{
-                                    border: 2px solid red;
-                                    
+                                // border: 2px solid pink;
+                                .reject_icon{
+                                    border: 1px solid red;
+                                    color: red;
+                                    background: #ffcece;
+                                    width: 40px;
+                                    height: 20px;
+                                    margin: 0 5px;
+                                    border-radius: 4px;
                                 }
-                                .reject_btn{
-                                    border: 2px solid red;
-
+                                .accept_icon{
+                                    border: 1px solid #00ff00;
+                                    color: #00ff00;
+                                    background: #d0ffd0;
+                                    width: 40px;
+                                    height:20px;
+                                    margin: 0 5px;
+                                    border-radius: 4px;
                                 }
                             }
                         }

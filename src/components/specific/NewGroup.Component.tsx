@@ -2,12 +2,16 @@ import "../../styles/specific/new-group.component.scss";
 import UserItem from "../shared/UserItem.Component";
 import { MouseEvent, useEffect, useState } from "react";
 import { server } from "../../constants/config";
+import toast, {Toaster} from "react-hot-toast";
+import { setIsNewGroup } from "../../redux/reducers/miscReducer";
+import { useDispatch } from "react-redux";
 
 
 const NewGroup = ({closeAllModels}:{closeAllModels:() => void}) => {
-    const [members, setMembers] = useState<{_id:string; name:string; avatar:string[]}[]>([]);
+    const [members, setMembers] = useState<{_id:string; name:string; avatar:{public_id:string; url:string;}}[]>([]);
     const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
     const [groupNameInp, setGroupNameInp] = useState<string>();
+    const dispatch = useDispatch();
 
     const selectedMemberHandler = (e:MouseEvent<HTMLDivElement|HTMLButtonElement>, id:string) => {
         e.stopPropagation();
@@ -34,7 +38,24 @@ const NewGroup = ({closeAllModels}:{closeAllModels:() => void}) => {
             console.log("------NewGroup.Component.tsx  submitHandler");
             console.log(data);
             console.log("------NewGroup.Component.tsx  submitHandler");
+
+            if (data.success === true) {
+                toast.success(`New chat has been created`, {
+                    position:"bottom-center",
+                    duration:1000
+                });
+            }
+            else{
+                toast.error(data.message, {
+                    position:"bottom-center",
+                    duration:1000
+                });
+            }
         } catch (error) {
+            toast.error("Error Occured", {
+                position:"bottom-center",
+                duration:1000
+            });
             console.log("------NewGroup.Component.tsx  submitHandler");
             console.log(error);
             console.log("------NewGroup.Component.tsx  submitHandler");
@@ -65,6 +86,7 @@ const NewGroup = ({closeAllModels}:{closeAllModels:() => void}) => {
 
     return(
         <div className="new_group_cont" style={{zIndex:"1"}}>
+            <Toaster />
             <div className="closing_area" onClick={closeAllModels}>
 
             </div>
@@ -88,7 +110,7 @@ const NewGroup = ({closeAllModels}:{closeAllModels:() => void}) => {
                 </div>
 
                 <div className="btns_cont">
-                    <button>Cancel</button>
+                    <button onClick={() => dispatch(setIsNewGroup(false))}>Cancel</button>
                     <button onClick={submitHandler}>Create</button>
                 </div>
             </dialog>

@@ -13,6 +13,7 @@ export interface MiscInitialStateTypes {
         groupChat:boolean
     };
     isMobile:boolean;
+    isProfileCard:boolean;
     isForwardMessageActive:boolean;
 }
 
@@ -29,6 +30,7 @@ const miscInitialState:MiscInitialStateTypes = {
         groupChat:false
     },
     isMobile:false,
+    isProfileCard:false,
     isForwardMessageActive:false
 };
 
@@ -49,6 +51,10 @@ const miscReducer = createSlice({
         },
         setIsMobile:(state, action) => {
             state.isMobile = action.payload;
+
+        },
+        setIsProfileCard:(state, action) => {
+            state.isProfileCard = action.payload;
 
         },
         setIsSearch:(state, action) => {
@@ -78,4 +84,4 @@ const miscReducer = createSlice({
 });
 
 export default miscReducer;
-export const {setIsNewGroup,setIsAddMember,setIsMobile,setIsNotification,setIsSearch,setIsFileMenu,setIsDeleteMenu,setUploadingLoader,setSelectedDeleteChat,setIsForwardMessageActive} = miscReducer.actions;
+export const {setIsNewGroup,setIsAddMember,setIsMobile,setIsProfileCard,setIsNotification,setIsSearch,setIsFileMenu,setIsDeleteMenu,setUploadingLoader,setSelectedDeleteChat,setIsForwardMessageActive} = miscReducer.actions;

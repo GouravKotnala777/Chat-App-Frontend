@@ -5,10 +5,10 @@ import { Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { server } from "../../constants/config";
 import { useDispatch, useSelector } from "react-redux";
-import { MiscInitialStateTypes, setIsForwardMessageActive, setIsMobile, setIsNewGroup, setIsNotification, setIsSearch } from "../../redux/reducers/miscReducer";
+import { MiscInitialStateTypes, setIsForwardMessageActive, setIsMobile, setIsNewGroup, setIsNotification, setIsProfileCard, setIsSearch } from "../../redux/reducers/miscReducer";
 import { ActivityStateReducerInitialStateType } from "../../redux/reducers/activityStateReducer";
 import { MdDelete } from "react-icons/md";
-import { BsForward } from "react-icons/bs";
+import { BsEye, BsForward } from "react-icons/bs";
 import { InitialSelectedMessagesReducerStateType } from "../../redux/reducers/selectedMessagesReducer";
 import toast, {Toaster} from "react-hot-toast";
 
@@ -19,7 +19,7 @@ const NewGroupDialog = lazy(() => import("../specific/NewGroup.Component"));
 
 
 const Header = () => {
-    const {isMobile,isSearch,isNewGroup,isNotification} = useSelector((state:{miscReducer:MiscInitialStateTypes}) => state.miscReducer);
+    const {isMobile,isProfileCard,isSearch,isNewGroup,isNotification} = useSelector((state:{miscReducer:MiscInitialStateTypes}) => state.miscReducer);
     const {isnormalActive, isMessageSelectionActive} = useSelector((state:{activityStateReducer:ActivityStateReducerInitialStateType}) => state.activityStateReducer);
     const {selectedMessages} = useSelector((state:{selectedMessagesReducer:InitialSelectedMessagesReducerStateType}) => state.selectedMessagesReducer);
     const navigate = useNavigate();
@@ -29,30 +29,42 @@ const Header = () => {
 
     const handleMobile = () => {
         dispatch(setIsMobile(!isMobile));
+        dispatch(setIsProfileCard(false));
+        dispatch(setIsSearch(false));
+        dispatch(setIsNewGroup(false));
+        dispatch(setIsNotification(false));
+    };
+    const handleProfileCard = () => {
+        dispatch(setIsMobile(false));
+        dispatch(setIsProfileCard(!isProfileCard));
         dispatch(setIsSearch(false));
         dispatch(setIsNewGroup(false));
         dispatch(setIsNotification(false));
     };
     const openSearchDialog = () => {
         dispatch(setIsMobile(false));
+        dispatch(setIsProfileCard(false));
         dispatch(setIsSearch(!isSearch));
         dispatch(setIsNewGroup(false));
         dispatch(setIsNotification(false));
     };
     const openNewGroup = () => {
         dispatch(setIsMobile(false));
+        dispatch(setIsProfileCard(false));
         dispatch(setIsSearch(false));
         dispatch(setIsNewGroup(!isNewGroup));
         dispatch(setIsNotification(false));
     };
     const openNotification = () => {
         dispatch(setIsMobile(false));
+        dispatch(setIsProfileCard(false));
         dispatch(setIsSearch(false));
         dispatch(setIsNewGroup(false));
         dispatch(setIsNotification(!isNotification));
     };
     const closeAllModels = () => {
         dispatch(setIsMobile(false));
+        dispatch(setIsProfileCard(false));
         dispatch(setIsSearch(false));
         dispatch(setIsNewGroup(false));
         dispatch(setIsNotification(false));
@@ -141,7 +153,7 @@ const Header = () => {
                             <BiSearch className="nav_link" onClick={() => openSearchDialog()} />
                             <BiAddToQueue className="nav_link" onClick={() => openNewGroup()} />
                             <BiGroup className="nav_link" onClick={() => navigate("/groups")} />
-
+                            <BsEye className="eye_icon nav_link" onClick={() => handleProfileCard()} />
                             <BiNotification className="nav_link" onClick={() => openNotification()} />
                             <BiLogOut className="nav_link" onClick={() => logoutHandler()} />
                         </div>

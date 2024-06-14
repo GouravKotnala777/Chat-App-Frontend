@@ -1,14 +1,18 @@
 import "../../styles/specific/notification.component.scss";
 import { memo, useEffect, useState } from "react";
-import logo from "../../assets/react.svg";
 import { server } from "../../constants/config";
+import toast, {Toaster} from "react-hot-toast";
+import { BiCheck, BiLeftArrowAlt } from "react-icons/bi";
+import { setIsNotification } from "../../redux/reducers/miscReducer";
+import { useDispatch } from "react-redux";
+import { CgClose } from "react-icons/cg";
 
 const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
-    const [notifications, setNotifications] = useState<{_id:string; sender:{_id:string; name:string; userName:string; avatar:string[];}}[]>([]);
-
+    const [notifications, setNotifications] = useState<{_id:string; sender:{_id:string; name:string; userName:string; avatar:string;}}[]>([]);
+    const dispatch = useDispatch();
 
     const friendRequestHandler = async({_id, accept}:{_id:string; accept:boolean;}) => {
-        console.log({_id, accept});
+
         try {
             const res = await fetch(`${server}/api/v1/user/acceptrequest`, {
                 method:"PUT",
@@ -24,7 +28,23 @@ const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
             console.log("------ Notification.Component.tsx  friendRequestHandler");
             console.log(data);
             console.log("------ Notification.Component.tsx  friendRequestHandler");
+            if (data.success === true) {
+                toast.success(data.message, {
+                    position:"bottom-center",
+                    duration:1000
+                });
+            }
+            else{
+                toast.error(data.message, {
+                    position:"bottom-center",
+                    duration:1000
+                });
+            }
         } catch (error) {
+            toast.error("Error Occured", {
+                position:"bottom-center",
+                duration:1000
+            });
             console.log("------ Notification.Component.tsx  friendRequestHandler");
             console.log(error);
             console.log("------ Notification.Component.tsx  friendRequestHandler");   
@@ -55,6 +75,9 @@ const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
         
     };
 
+    // console.log({notifications});
+    
+
 
     useEffect(() => {
         myAllRequests();
@@ -62,10 +85,12 @@ const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
 
     return(
         <div className="notification_cont" style={{zIndex:"1"}}>
+            <Toaster />
             <div className="closing_area" onClick={closeAllModels}>
 
             </div>
             <dialog className="dialog_cont" open>
+                <BiLeftArrowAlt className="back_btn" onClick={() => dispatch(setIsNotification(false))} />
                 <div className="dialog_heading">Notification</div>
                 {/* <input type="text" name="name" placeholder="User Name" />
                 <button>Search</button> */}
@@ -74,11 +99,10 @@ const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
                     <ul className="notification_cont_ul">
                         {
                             notifications ?
-                                <>
-                                    {notifications.map((i, index) => (
+                                    notifications.map((i, index) => (
                                         <li className="notification_cont_li" key={index}><NotificationItem key={i._id} sender={i.sender} _id={i._id} handler={friendRequestHandler} /></li>
-                                    ))}
-                                </>
+                                    ))
+                                
                                 :
                                 <h2>No Notifications</h2>
                         }
@@ -89,21 +113,18 @@ const Notification = ({closeAllModels}:{closeAllModels:() => void}) => {
     )
 };
 
-const NotificationItem = memo(({sender, _id, handler}:{sender:{avatar:string[]; name:string;}; _id:string; handler:({ _id, accept }:{_id: string; accept: boolean;}) => void}) => {
-    const {name} = sender;
+const NotificationItem = memo(({sender, _id, handler}:{sender:{avatar:string; name:string;}; _id:string; handler:({ _id, accept }:{_id: string; accept: boolean;}) => void}) => {
+    const {name, avatar} = sender;
+    
 
     return(
         <div className="notification_item_cont">
             <div className="notification_item">
-                <img src={logo} alt={logo} />
+                <img src={avatar} alt={avatar} />
                 <div className="user_name">{name} <span>sent you a friend request</span></div>
                 <div className="btns">
-                    <button className="accept_btn" onClick={() => handler({_id, accept:true})}>
-                        Accept
-                    </button>
-                    <button className="reject_btn" onClick={() => handler({_id, accept:false})}>
-                        Reject
-                    </button>
+                    <CgClose className="reject_icon" onClick={() => handler({_id, accept:false})} />
+                    <BiCheck className="accept_icon" onClick={() => handler({_id, accept:true})} />
                 </div>
             </div>
         </div>

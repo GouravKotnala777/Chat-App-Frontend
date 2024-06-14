@@ -15,9 +15,12 @@ export interface ChatTypesPopulated {
     members:UserTypes[];
 }
 export interface UserTypes {
-    avatar:string[];
+    avatar:{public_id:string; url:string;};
     name:string;
+    userName:string;
     _id:string;
+    bio:string;
+    createdAt:Date;
 }
 export interface NotificationTypes {
     sender:{
@@ -65,23 +68,18 @@ export const sampleChats:ChatTypes[] = [
         members:["2", "3"]
     },
 ];
-export const sampleUsers:UserTypes[] = [
-    {
-        avatar:["https://www.w3schools.com/howto/img_avatar.png"],
-        name:"Gourav",
-        _id:"1"
+export const sampleUsers:UserTypes = {
+    avatar:{
+        public_id:"https://www.w3schools.com/howto/img_avatar.png",
+        url:"https://www.w3schools.com/howto/img_avatar.png"
     },
-    {
-        avatar:["https://www.w3schools.com/howto/img_avatar.png"],
-        name:"Naruto",
-        _id:"2"
-    },
-    {
-        avatar:["https://www.w3schools.com/howto/img_avatar.png"],
-        name:"Sasuke",
-        _id:"3"
-    },
-];
+    name:"Gourav",
+    _id:"1",
+    bio:"fsdfsdfsd",
+    userName:"Gourav Kotnala",
+    createdAt:new Date()
+}
+;
 export const sampleNotifications:NotificationTypes[] = [
     {
         sender:{

@@ -1,12 +1,12 @@
 import {MouseEvent, useEffect, useState } from "react";
 import "../../styles/dialog/add-member-dialog.scss";
-import { UserTypes, sampleUsers } from "../../constants/sampleData";
+import { UserTypes } from "../../constants/sampleData";
 import UserItem from "../shared/UserItem.Component";
 import { server } from "../../constants/config";
 
 
 const AddMemberDialog = ({purpose, isLoadingAddMember}:{purpose:string; addMember?:string; isLoadingAddMember?:boolean;}) => {
-    const [members, setMembers] = useState<UserTypes[]>(sampleUsers);
+    const [members, setMembers] = useState<UserTypes[]>();
     const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 
 
@@ -22,6 +22,7 @@ const AddMemberDialog = ({purpose, isLoadingAddMember}:{purpose:string; addMembe
     };
     const closeHandler = (e:MouseEvent<HTMLDivElement|HTMLButtonElement>) => {        
         e.stopPropagation();
+        console.log("close handler Add member dialog");
     };
     const addMemberSubmitHandler = () => {
         console.log("Members added");
@@ -52,8 +53,8 @@ const AddMemberDialog = ({purpose, isLoadingAddMember}:{purpose:string; addMembe
             <dialog className="add_member_dialog" open>
                 <div className="dialog_title">{purpose === "forward" ? "Forward to" : "Add Members"}</div>
                 <div className="dialog_content">
-                    {   members.length > 0 ?
-                            members.map((i) => (
+                    {   members&&members.length > 0 ?
+                            members?.map((i) => (
                                 <UserItem key={i._id} user={i} handler={selectMemberHandler} isUserAdded={selectedMembers.includes(i._id)} />
                             ))
                             :

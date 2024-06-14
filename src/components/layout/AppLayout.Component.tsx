@@ -6,7 +6,7 @@ import ChatList from "../specific/ChatList.Component";
 import { useParams } from "react-router-dom";
 import ProfileCard from "../specific/ProfileCard.Component";
 import { useDispatch, useSelector } from "react-redux";
-import { MiscInitialStateTypes, setIsMobile } from "../../redux/reducers/miscReducer";
+import { MiscInitialStateTypes, setIsMobile, setIsProfileCard } from "../../redux/reducers/miscReducer";
 import { ActivityStateReducerInitialStateType, setIsnormalActive } from "../../redux/reducers/activityStateReducer";
 import { setUnSelectAllMessages } from "../../redux/reducers/selectedMessagesReducer";
 import { MdCancel } from "react-icons/md";
@@ -28,6 +28,7 @@ const AppLayout = () => <P extends object>(WrappedComponent:ComponentType<P>) =>
             // isDeleteMenu,
             // uploadingLoader,
             // selectedDeleteChat,
+            isProfileCard,
             isMobile} = useSelector!((state:{miscReducer:MiscInitialStateTypes}) => state.miscReducer);
         const dispatch = useDispatch!();
         // const socket = getSocket();
@@ -74,7 +75,7 @@ const AppLayout = () => <P extends object>(WrappedComponent:ComponentType<P>) =>
                 </div>
 
 
-                <div className="hamburger_overlay" style={{left:isMobile?"0%":"-97%"}}>
+                <div className="hamburger_overlay" style={{left:isMobile?"0%":"-100%"}}>
                     <div className="left_part">
                         {
                             isMobile &&
@@ -85,7 +86,22 @@ const AppLayout = () => <P extends object>(WrappedComponent:ComponentType<P>) =>
                         <MdCancel className="cancel_icon" />
                     </div>
                 </div>
+
                 
+                <div className="profile_card_overlay" style={{right:isProfileCard?"0%":"-100%"}}>
+                    <div className="left_part" style={{background:isProfileCard?"rgba(0,0,0,0.7)":""}} onClick={() => dispatch(setIsProfileCard(false))}>
+                        <MdCancel className="cancel_icon" />
+                    </div>
+                    <div className="right_part">
+                        {
+                            isProfileCard &&
+                                <ProfileCard />
+                        }
+                    </div>
+                </div>
+                
+
+
                 {/* <div>Footer</div> */}
             </div>
         );
