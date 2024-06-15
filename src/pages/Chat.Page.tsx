@@ -10,9 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthReducerInitialState, LoginedUserTypes } from "../redux/reducers/authReducer";
 import { useParams } from "react-router-dom";
 import { getSocket } from "../socket";
-import { initialSelectedChatReducerTypes } from "../redux/reducers/selectedChatReducer";
+// import { initialSelectedChatReducerTypes } from "../redux/reducers/selectedChatReducer";
 import { MiscInitialStateTypes, setIsFileMenu } from "../redux/reducers/miscReducer";
 import ChatList from "../components/specific/ChatList.Component";
+// import { useSocketEvents } from "../hooks/hooks";
 
 
 export interface MessageForRealTimeTypes{
@@ -35,7 +36,7 @@ const Chat = () => {
   const [messageInp, setMessageInp] = useState<string>("");
   const [messagesRT, setMessagesRT] = useState<MessageForRealTimeTypes[]>([]);
   const {user} = useSelector((state:{authReducer:AuthReducerInitialState}) => state.authReducer);
-  const {chat} = useSelector((state:{selectedChatReducer:initialSelectedChatReducerTypes}) => state.selectedChatReducer);
+  // const {chat} = useSelector((state:{selectedChatReducer:initialSelectedChatReducerTypes}) => state.selectedChatReducer);
   const {chatID} = useParams();
   const socket = getSocket();
   const dispatch = useDispatch();
@@ -55,13 +56,7 @@ const Chat = () => {
       const data = await res.json();
 
       console.log("------ ChatPage.tsx  sendAttachmentHendler");
-
       console.log(data);
-      const memberArray = chat?.members.map((q:{_id:string; name:string;}) => (
-        q._id
-      ));
-      socket?.emit("NEW_MESSAGE", {chatID, members:memberArray, messageInp});
-
       console.log("------ ChatPage.tsx  sendAttachmentHendler");
     } catch (error) {
       console.log("------ ChatPage.tsx  sendAttachmentHendler");
@@ -95,12 +90,8 @@ const Chat = () => {
 
   
   useEffect(() => {
-    socket?.on("NEW_MESSAGE", ({chatID, message}:{chatID:string; message:MessageForRealTimeTypes}) => {
-      console.log({chatID, message});
-      
-      
-      // setMessagesRT((prev) => [...prev, message]);
-      setMessagesRT([...messagesRT, message]);
+    socket?.on("NEW_MESSAGE", ({message}:{message:MessageForRealTimeTypes}) => {
+      setMessagesRT((prev) => [...prev, message]);
       setMessageInp("");
     })
   }, []);
@@ -110,13 +101,14 @@ const Chat = () => {
     getMyMessages();
   }, [chatID]);
 
-  // const newMessagesHandler = useCallback((data:unknown) => {
-  //   setMessagesRT((prev) => [...prev, data.message]);
-  //   setMessageInp("");
-  // }, []);
 
-  // const eventHandler = {"NEW_MESSAGE":newMessagesHandler};
-  // useSocketEvents(socket!, eventHandler);
+  // useEffect(() => {
+  //   socket?.on("NEW_MESSAGE", (data) => {
+  //     console.log("UUUUUUUUUUUUUUUUU");
+  //     console.log(data);
+  //     console.log("UUUUUUUUUUUUUUUUU");
+  //   });
+  // }, []);
 
   
     return (

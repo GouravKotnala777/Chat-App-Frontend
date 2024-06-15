@@ -16,7 +16,6 @@ const MessageComponent = ({keya, message, user}:{keya:string; message:MessageFor
     const timeAgo = moment(createdAt).fromNow();
     const {isnormalActive, isMessageSelectionActive} = useSelector((state:{activityStateReducer:ActivityStateReducerInitialStateType}) => state.activityStateReducer);
     const dispatch = useDispatch();
-    // const [selectedMessages, setSelectedMessages] = useState<string[]>([]);
     
 
     const selectMessageHandler = (e:MouseEvent<HTMLDivElement|MouseEvent>) => {
@@ -24,19 +23,9 @@ const MessageComponent = ({keya, message, user}:{keya:string; message:MessageFor
         const messageComponentCont = document.getElementById(`message_component_cont${keya}`);
         const messageContent = messageComponentCont?.childNodes[messageComponentCont?.childNodes.length - 2].textContent;
         const numberOfSelectedMessages = messageComponentCont?.parentElement?.querySelectorAll(".selected_message").length as number;
-
-    
-        console.log("#################");
-        console.log({messageContent});
-        console.log({content});
-        console.log({attachements});
-        
         
         const contentOrAttachement = {type:messageContent?"content":"attachement", content:messageContent?messageContent:attachements[0].url};
 
-        
-        console.log("#################");
-        
         
         if (numberOfSelectedMessages <= 1) {
             if (messageComponentCont?.classList.contains("selected_message")) {
@@ -46,7 +35,6 @@ const MessageComponent = ({keya, message, user}:{keya:string; message:MessageFor
             }
             else{
                 messageComponentCont?.classList.add("selected_message");
-                // console.log(messageContent);
                 dispatch(setSelectMessages({[keya]:{[contentOrAttachement.type]:contentOrAttachement.content as string}}));
                 dispatch(setIsMessageSelectionActive());
             }
@@ -58,7 +46,6 @@ const MessageComponent = ({keya, message, user}:{keya:string; message:MessageFor
             }
             else{
                 messageComponentCont?.classList.add("selected_message");
-                // console.log(messageContent);
                 dispatch(setSelectMessages({[keya]:{[contentOrAttachement.type]:contentOrAttachement.content as string}}));
                 dispatch(setIsMessageSelectionActive());
             }
@@ -66,8 +53,6 @@ const MessageComponent = ({keya, message, user}:{keya:string; message:MessageFor
         
     };
 
-    console.log("render ho gaya");
-    
     
     return(
         <>

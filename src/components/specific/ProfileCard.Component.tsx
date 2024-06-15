@@ -5,6 +5,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { initialSelectedChatReducerTypes } from "../../redux/reducers/selectedChatReducer";
 import { AuthReducerInitialState } from "../../redux/reducers/authReducer";
+import { imageWithFallbackHandler } from "../../utils/imageFallback";
 
 const ProfileCard = () => {
     const {chat} = useSelector((state:{selectedChatReducer:initialSelectedChatReducerTypes}) => state.selectedChatReducer);
@@ -18,7 +19,7 @@ const ProfileCard = () => {
     return(
         <div className="profile_card_cont">
             <div className="img_cont">
-                <img src={selectedChatUser?.avatar.url} alt={selectedChatUser?.avatar.public_id} />
+                <img src={selectedChatUser?.avatar.url} alt={selectedChatUser?.avatar.public_id} onError={(e) => imageWithFallbackHandler(e)} />
             </div>
             <div className="profile_info_cont">
                 <div className="profile_info">
